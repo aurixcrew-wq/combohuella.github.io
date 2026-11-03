@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combo Huellitas | Adopción & Arte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-bright: #F884FA;
+            --pink-soft: #FEC7FF;
+            --sand: #D6C79C;
+            --cyan-light: #79D8F2;
+            --blue-soft: #79BEF2;
+            --purple-mid: #8D8DF7;
+            --brown: #524324;
+            --lavender: #BCA2E8;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px; /* evita que el menú fijo tape los títulos */
+        }
+
+        body {
+            background-color: #fff8fe;
+            color: var(--brown);
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo { font-family: 'Baloo 2', cursive; }
+
+        /* ============ HEADER ============ */
+        header {
+            background: linear-gradient(135deg, var(--pink-bright), var(--purple-mid));
+            border-bottom: 4px solid var(--lavender);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(248,132,250,0.4);
+        }
+
+        .logo-img { height: 70px; width: auto; display: block; }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo {
+            font-size: 1.9rem;
+            color: var(--white);
+            text-shadow: 2px 2px var(--brown);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        nav ul { display: flex; list-style: none; gap: 18px; }
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+        nav a:hover, nav a.active {
+            background: var(--white);
+            color: var(--pink-bright);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: var(--white);
+            color: var(--purple-mid);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            width: 44px;
+            height: 44px;
+            cursor: pointer;
+        }
+
+        /* ============ BOTONES ============ */
+        .btn-main {
+            display: inline-block;
+            padding: 13px 28px;
+            background: var(--purple-mid);
+            border: none;
+            color: var(--white);
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 8px;
+            border-radius: 30px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(141,141,247,0.4);
+        }
+        .btn-main:hover {
+            background: var(--pink-bright);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(248,132,250,0.5);
+        }
+        .btn-cyan { background: var(--cyan-light); color: var(--brown); }
+        .btn-cyan:hover { background: var(--blue-soft); color: var(--brown); }
+
+        /* ============ LANDING ============ */
+        .landing {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 5%;
+            background: linear-gradient(160deg, var(--pink-soft) 0%, var(--cyan-light) 50%, var(--lavender) 100%);
+            border-bottom: 8px solid var(--pink-bright);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .landing > * { position: relative; z-index: 1; }
+
+        .landing h1 {
+            font-size: 3.8rem;
+            margin-bottom: 15px;
+            color: var(--brown);
+            text-shadow: 2px 2px var(--white);
+            line-height: 1.1;
+        }
+
+        .landing p.subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .hero-img {
+            width: 90%;
+            max-width: 800px;
+            border-radius: 20px;
+            border: 6px solid var(--white);
+            box-shadow: 0 10px 40px rgba(141,141,247,0.3);
+            margin: 30px auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* ============ INVESTIGACIÓN ============ */
+        .investigacion-panel {
+            display: none;
+            background: linear-gradient(135deg, var(--lavender), var(--pink-soft));
+            padding: 35px 5%;
+            border-left: 6px solid var(--purple-mid);
+        }
+        .investigacion-panel.open { display: block; }
+        .investigacion-panel h2 { margin-bottom: 15px; font-size: 1.8rem; }
+        .investigacion-panel h3 { margin: 20px 0 6px; font-size: 1.3rem; color: var(--purple-mid); }
+        .investigacion-panel p + p { margin-top: 10px; }
+        .investigacion-panel p, .investigacion-panel li { line-height: 1.8; }
+        .investigacion-panel ul { margin-top: 10px; padding-left: 20px; }
+
+        /* ============ SECCIONES DE TEXTO ============ */
+        .info-section {
+            padding: 60px 5%;
+            text-align: center;
+        }
+        .info-section h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .info-section p {
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        #quienes-somos { background: #fff8fe; }
+        #quienes-somos h2 { color: var(--purple-mid); }
+        #agencia { background: linear-gradient(135deg, var(--pink-soft), #fff8fe); }
+        #agencia h2 { color: var(--pink-bright); }
+
+        .info-section p + p { margin-top: 14px; }
+        .agencia-cta { font-weight: 800; color: var(--purple-mid); }
+
+        /* ============ CARRUSEL ============ */
+        .carousel-container {
+            padding: 55px 5%;
+            background: linear-gradient(135deg, var(--blue-soft), var(--cyan-light));
+            text-align: center;
+        }
+        .carousel-container h2 { margin-bottom: 25px; font-size: 2.2rem; }
+
+        .carousel {
+            overflow: hidden;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 5px solid var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(121,190,242,0.4);
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            height: 400px;
+        }
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .carousel-controls { margin-top: 16px; }
+
+        .dots { margin-top: 10px; }
+        .dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            border: 2px solid var(--white);
+            background: transparent;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .dot.active { background: var(--white); transform: scale(1.2); }
+
+        /* ============ CATÁLOGO ============ */
+        .catalogo { padding: 60px 5%; background: #fff8fe; }
+        .catalogo h2 {
+            color: var(--purple-mid);
+            margin-bottom: 35px;
+            font-size: 2.4rem;
+            text-align: center;
+        }
+
+        .grid-catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 2px solid var(--pink-soft);
+            padding: 22px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(188,162,232,0.18);
+        }
+        .card:nth-child(3n+1) { border-color: var(--pink-bright); }
+        .card:nth-child(3n+2) { border-color: var(--cyan-light); }
+        .card:nth-child(3n+3) { border-color: var(--lavender); }
+        .card:hover {
+            border-color: var(--purple-mid);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(141,141,247,0.25);
+        }
+        .card::before {
+            content: "⭐ TOP";
+            position: absolute;
+            top: 10px;
+            right: -22px;
+            background: var(--pink-bright);
+            color: var(--white);
+            padding: 4px 38px;
+            transform: rotate(45deg);
+            font-size: 0.65rem;
+            font-weight: 800;
+            pointer-events: none;
+        }
+        .card h3 { font-size: 1.2rem; margin-bottom: 8px; padding-right: 20px; }
+        .card p { color: #7a5c3a; font-size: 0.9rem; line-height: 1.6; }
+
+        .card button {
+            background: var(--lavender);
+            border: none;
+            color: var(--white);
+            padding: 8px 16px;
+            margin-top: 12px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .card button:hover { background: var(--purple-mid); }
+
+        /* ============ MODAL DE PRODUCTO ============ */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(82,67,36,0.6);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal.open { display: flex; }
+        .modal-box {
+            background: var(--white);
+            border: 4px solid var(--pink-bright);
+            border-radius: 20px;
+            padding: 35px 30px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+        .modal-box h3 { font-size: 1.7rem; color: var(--purple-mid); margin-bottom: 12px; }
+        .modal-box p { line-height: 1.7; margin-bottom: 20px; }
+        .modal-list {
+            list-style: none;
+            text-align: left;
+            margin: 0 0 20px;
+            padding: 0;
+        }
+        .modal-list li {
+            padding: 6px 0;
+            line-height: 1.5;
+            border-bottom: 1px dashed var(--pink-soft);
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px; right: 14px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--brown);
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--pink-bright); }
+
+        /* ============ PROYECTO TRANSMEDIA ============ */
+        .proyecto-box {
+            background: linear-gradient(135deg, var(--sand), var(--brown));
+            padding: 65px 5%;
+        }
+        .proyecto-box h2 {
+            color: var(--white);
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .proyecto-box p.sub {
+            text-align: center;
+            color: var(--pink-soft);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        .grid-transmedia {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .transmedia-item {
+            background: rgba(255,255,255,0.12);
+            padding: 22px 16px;
+            text-align: center;
+            border: 2px solid var(--pink-soft);
+            border-radius: 14px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.05rem;
+            color: var(--white);
+            backdrop-filter: blur(4px);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .transmedia-item:hover {
+            background: var(--pink-bright);
+            border-color: var(--white);
+            transform: scale(1.05);
+        }
+        .transmedia-item.active {
+            background: var(--pink-bright);
+            border-color: var(--white);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .transmedia-panel {
+            display: none;
+            max-width: 850px;
+            margin: 30px auto 0;
+            padding: 28px;
+            background: rgba(255,255,255,0.12);
+            border: 2px solid var(--pink-soft);
+            border-radius: 18px;
+            color: var(--white);
+            text-align: center;
+        }
+        .transmedia-panel.active { display: block; }
+        .transmedia-panel h3 { font-size: 1.7rem; margin-bottom: 8px; }
+        .transmedia-panel > p { line-height: 1.7; margin-bottom: 20px; }
+
+        /* Espacio del video (proporción 16:9) */
+        .video-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.25);
+        }
+        .video-box iframe,
+        .video-box video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .video-box--vertical {
+            aspect-ratio: 386 / 848;
+            max-width: 340px;
+            margin: 0 auto;
+        }
+        .video-box--vertical video { object-fit: contain; background: #000; }
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed var(--pink-soft);
+            border-radius: 14px;
+            font-family: 'Baloo 2', cursive;
+            font-size: 1.3rem;
+            color: var(--pink-soft);
+            padding: 10px;
+        }
+
+        /* Galería de fotos de la exposición: 3 fotos arriba y 2 más grandes abajo */
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+            margin-top: 22px;
+        }
+        .galeria img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: center 30%;
+            border-radius: 14px;
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            grid-column: span 2;
+        }
+        .galeria img:nth-child(n+4) {
+            grid-column: span 3;
+            height: 340px;
+        }
+        @media (max-width: 768px) {
+            .galeria { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .galeria img,
+            .galeria img:nth-child(n+4) { grid-column: span 1; height: 190px; }
+            .galeria img:last-child:nth-child(odd) { grid-column: span 2; height: 240px; }
+        }
+        .foto-placeholder {
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px dashed var(--pink-soft);
+            border-radius: 12px;
+            color: var(--pink-soft);
+            font-family: 'Baloo 2', cursive;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, var(--purple-mid), var(--pink-bright));
+            padding: 55px 5%;
+            border-top: 4px solid var(--lavender);
+            text-align: center;
+        }
+        footer h2 { color: var(--white); font-size: 2rem; margin-bottom: 10px; }
+
+        .social-buttons {
+            margin: 22px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .social-btn {
+            width: 54px; height: 54px;
+            border-radius: 50%;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--purple-mid);
+            font-weight: 800;
+            font-size: 0.85rem;
+            border: 3px solid var(--lavender);
+            transition: 0.3s;
+        }
+        .social-btn:hover {
+            background: var(--pink-soft);
+            transform: scale(1.15);
+            box-shadow: 0 0 18px rgba(255,255,255,0.5);
+        }
+
+        .social-btn svg { width: 26px; height: 26px; }
+
+        footer .info { margin-top: 20px; line-height: 2.2; color: var(--white); }
+        footer strong { color: var(--pink-soft); }
+        footer a { color: inherit; text-decoration: none; }
+        footer a:hover strong { text-decoration: underline; }
+
+        .btn-top {
+            position: fixed;
+            bottom: 95px; right: 25px;
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--purple-mid);
+            color: var(--white);
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(141,141,247,0.5);
+            display: none;
+            z-index: 900;
+            transition: 0.3s;
+        }
+        .btn-top:hover { background: var(--pink-bright); }
+        .btn-top.show { display: block; }
+
+
+        /* ============ BOTÓN FLOTANTE WHATSAPP ============ */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            width: 62px; height: 62px;
+            border-radius: 50%;
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 18px rgba(37,211,102,0.55);
+            z-index: 950;
+            transition: 0.3s;
+            animation: wa-pulse 2s infinite;
+        }
+        .whatsapp-float:hover { transform: scale(1.12); background: #1ebe5b; }
+        .whatsapp-float svg { width: 34px; height: 34px; fill: #fff; }
+        @keyframes wa-pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.6); }
+            70%  { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+            100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .landing h1 { font-size: 2.4rem; }
+            .logo { font-size: 1.4rem; }
+            .menu-toggle { display: block; }
+            nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: linear-gradient(135deg, var(--pink-bright), var(--purple-mid));
+                padding: 15px 5%;
+                border-bottom: 4px solid var(--lavender);
+            }
+            nav.open { display: block; }
+            nav ul { flex-direction: column; gap: 6px; }
+            nav a { display: block; font-size: 1rem; padding: 10px 14px; }
+            .slide { height: 240px; }
+        }
+
+        /* ============ MAPA ============ */
+        .mapa-panel { border-left-color: var(--cyan-light); }
+        #mapaLeaflet { width: 100%; height: 420px; border-radius: 14px; margin-top: 15px; z-index: 1; }
+        .mapa-link { display: inline-block; margin-top: 14px; font-weight: 800; }
+        .flecha-mapa { font-size: 46px; line-height: 1; text-align: center; filter: drop-shadow(0 3px 3px rgba(0,0,0,.45)); animation: flecha-rebote 1s ease-in-out infinite; }
+        @keyframes flecha-rebote { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <!-- LOGO: ya está incrustado dentro del archivo (no necesitas carpeta). -->
+        <a href="#inicio" class="logo">
+            <img src="multimedia/imagen1.png" alt="Logo Combo Huellitas" class="logo-img" onerror="this.style.display='none'">
+            <span>COMBO HUELLITAS</span>
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                <li><a href="#agencia">Agencia</a></li>
+                <li><a href="#proposito">Propósito</a></li>
+                <li><a href="#catalogo">Productos</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============ INICIO ============ -->
+    <section class="landing" id="inicio">
+        <h1>COMBO HUELLITAS</h1>
+        <p class="subtitle">Adopción responsable con amor por los animales 🐶🐱</p>
+
+        <!-- IMAGEN DE INICIO: ya está incrustada dentro del archivo (no necesitas carpeta). -->
+        <img
+            src="multimedia/imagen2.jpg"
+            alt="Perritos y gatitos adorables del Combo Huellitas"
+            class="hero-img"
+            onerror="this.style.display='none'"
+        />
+
+        <div class="actions">
+            <button class="btn-main" id="btnInvestigacion" aria-expanded="false" aria-controls="investigacion">INVESTIGACIÓN ▾</button>
+            <button class="btn-main btn-cyan" id="btnMapa" aria-expanded="false" aria-controls="mapa">CARTOGRAFÍA 📍</button>
+        </div>
+    </section>
+
+    <!-- ============ PANEL MAPA ============ -->
+    <div id="mapa" class="investigacion-panel mapa-panel">
+        <h2>📍 CARTOGRAFÍA</h2>
+        <p>Nos encontramos en el barrio <strong>La Victoria</strong>, localidad de San Cristóbal, Bogotá. La flecha marca la ubicación.</p>
+        <div id="mapaLeaflet"></div>
+        <a class="mapa-link" href="https://www.google.com/maps/search/?api=1&query=4.5450,-74.0862" target="_blank" rel="noopener">Abrir en Google Maps ↗</a>
+    </div>
+
+    <!-- ============ PANEL INVESTIGACIÓN ============ -->
+    <div id="investigacion" class="investigacion-panel">
+        <h2>TEORÍA Y PROBLEMÁTICA</h2>
+
+        <h3>La problemática</h3>
+        <p>En muchos barrios, los jóvenes tienen pocos espacios culturales y de recreación, lo que los deja más expuestos al consumo de sustancias psicoactivas y a la desconexión con su comunidad. Al mismo tiempo, el abandono de perros y gatos en la calle es un problema visible y constante, que casi siempre se aborda con campañas aisladas y poco atractivas para los jóvenes.</p>
+        <p>Estas dos realidades suelen tratarse por separado, aunque comparten la misma raíz: la falta de cuidado, de sentido de pertenencia y de espacios donde la comunidad se encuentre y participe.</p>
+
+        <h3>La propuesta</h3>
+        <p>Combo Huellitas une ambos temas. Usa el arte y el cuidado de los animales como puerta de entrada para que los jóvenes participen, se expresen y construyan hábitos de vida sana, mientras se promueve la adopción responsable.</p>
+
+        <h3>Marco teórico</h3>
+        <ul>
+            <li><strong>Enfoque transmedia:</strong> una misma historia se cuenta en varios formatos (reels, TikToks, exposición y talleres), de modo que cada persona la encuentra en el canal que más usa.</li>
+            <li><strong>Participación ciudadana:</strong> la comunidad no es solo receptora del mensaje; también crea, opina y se apropia de la campaña.</li>
+            <li><strong>Prevención comunitaria:</strong> es más efectivo reducir los factores de riesgo fortaleciendo vínculos, actividades culturales y redes de apoyo que con mensajes basados solo en el miedo.</li>
+            <li><strong>Arte y educación:</strong> el arte urbano y los talleres permiten expresar emociones y generar conciencia de forma cercana y no impositiva.</li>
+        </ul>
+
+        <h3>Objetivo</h3>
+        <p>Fomentar la adopción responsable y la prevención del consumo de sustancias psicoactivas mediante una estrategia transmedia que involucre activamente a los jóvenes del sector.</p>
+
+        <!-- Si tienes datos reales (estadísticas, cifras o fuentes), agrégalos aquí como una lista <ul><li>...</li></ul>. -->
+    </div>
+
+    <!-- ============ QUIÉNES SOMOS ============ -->
+    <section class="info-section" id="quienes-somos">
+        <h2>💜 QUIÉNES SOMOS</h2>
+        <p>Combo Huellitas es un colectivo de jóvenes artistas, comunicadores y amantes de los animales que nació en el barrio con una idea sencilla: usar el arte para cambiar la forma en que nuestra comunidad cuida a perros y gatos.</p>
+        <p>Pintamos murales, creamos contenido y organizamos encuentros para promover la adopción responsable y la tenencia consciente de mascotas. Creemos que cada animal merece un hogar, y que el arte es la mejor manera de contar su historia.</p>
+        <p>Además, trabajamos con familias y jóvenes del sector en actividades de prevención y vida sana, porque una comunidad que cuida a los animales también aprende a cuidarse entre sí.</p>
+    </section>
+
+    <!-- ============ AGENCIA ============ -->
+    <section class="info-section" id="agencia">
+        <h2>🎨 AGENCIA</h2>
+        <p>Nuestra agencia creativa pone el talento del colectivo al servicio de campañas con propósito. Si tienes una fundación, un negocio o un evento y quieres llegar a la gente con arte y corazón, podemos ayudarte.</p>
+        <p>Hacemos murales y arte urbano, reels y contenido para redes, campañas de adopción, talleres de arte comunitario, diseño de productos y merch, y exposiciones y eventos.</p>
+        <p class="agencia-cta">¿Tienes una idea? Escríbenos por WhatsApp y la hacemos realidad.</p>
+    </section>
+
+    <!-- ============ CARRUSEL ============ -->
+    <section class="carousel-container">
+        <h2>🌟 COMBO HUELLITAS DESTACADOS</h2>
+        <div class="carousel" id="carousel">
+            <div class="carousel-track" id="carouselTrack">
+                <!-- Cada <div class="slide"> es una diapositiva. Para agregar otra, copia uno de estos bloques. -->
+                <div class="slide"><img src="multimedia/imagen3.jpg" alt="Perrito y gatito juntos"></div>
+                <div class="slide"><img src="multimedia/imagen4.jpg" alt="Perritos mirando a través de la reja"></div>
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <button class="btn-main" id="prevSlide">◀ Anterior</button>
+            <button class="btn-main" id="nextSlide">Siguiente ▶</button>
+        </div>
+        <div class="dots" id="dots"></div>
+    </section>
+
+    <!-- ============ CATÁLOGO ============ -->
+    <section class="catalogo" id="catalogo">
+        <h2>🛍️ CATÁLOGO DE PRODUCTOS</h2>
+        <div class="grid-catalogo" id="articulos-grid"></div>
+    </section>
+
+    <!-- ============ PROYECTO TRANSMEDIA ============ -->
+    <section class="proyecto-box" id="proposito">
+        <h2>EL PROYECTO TRANSMEDIA</h2>
+        <p class="sub">COMBO HUELLITAS en todos los canales</p>
+        <div class="grid-transmedia" role="tablist">
+            <button class="transmedia-item active" role="tab" aria-selected="true" data-target="panel-reels">🎬 Reels</button>
+            <button class="transmedia-item" role="tab" aria-selected="false" data-target="panel-tiktoks">🎵 TikToks</button>
+            <button class="transmedia-item" role="tab" aria-selected="false" data-target="panel-exposicion">🖼️ Exposición</button>
+        </div>
+
+        <!-- ============ PANEL REELS ============ -->
+        <div class="transmedia-panel active" id="panel-reels" role="tabpanel">
+            <h3>🎬 Reels</h3>
+            <p>Nuestros reels cuentan, en formato audiovisual, la historia de Combo Huellitas: el arte urbano, el cuidado de perros y gatos y la importancia de la adopción responsable. Míralo, compártelo y ayúdanos a que más jóvenes del barrio se sumen.</p>
+            <div class="video-box">
+                <video src="multimedia/video_horizontal.mp4" controls playsinline preload="auto" title="Reel"></video>
+            </div>
+        </div>
+
+        <!-- ============ PANEL TIKTOKS ============ -->
+        <div class="transmedia-panel" id="panel-tiktoks" role="tabpanel">
+            <h3>🎵 TikToks</h3>
+            <p>Videos cortos, directos y hechos para compartir. En nuestros TikToks mostramos el día a día del colectivo, mensajes de adopción responsable y vida sana, con un lenguaje cercano a los jóvenes de la comunidad.</p>
+            <div class="video-box video-box--vertical">
+                <video src="multimedia/video_vertical.mp4" controls playsinline preload="auto" title="TikTok"></video>
+            </div>
+        </div>
+
+        <!-- ============ PANEL EXPOSICIÓN ============ -->
+        <div class="transmedia-panel" id="panel-exposicion" role="tabpanel">
+            <h3>🖼️ Exposición</h3>
+            <p>Escribe aquí la descripción de la exposición: fecha, lugar y de qué trata.</p>
+            <!-- FOTOS DE LA EXPOSICIÓN: cada línea <img> es una foto. Para agregar más, copia una línea <img> completa. -->
+            <div class="galeria">
+                <img src="multimedia/imagen5.jpg" alt="Perrito mirando a la cámara">
+                <img src="multimedia/imagen6.jpg" alt="Perrito y gatito juntos">
+                <img src="multimedia/imagen7.jpg" alt="Tres cachorros">
+                <img src="multimedia/imagen8.jpg" alt="Perra con sus cachorros">
+                <img src="multimedia/imagen9.jpg" alt="Perrito y gatito naranja en el campo">
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="contacto">
+        <h2>📬 CONTACTO & REDES</h2>
+        <!-- Enlaces a tus redes sociales -->
+        <div class="social-buttons">
+            <a href="https://www.instagram.com/combo_huellitas" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="3" width="18" height="18" rx="5"/>
+                    <circle cx="12" cy="12" r="4"/>
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+                </svg>
+            </a>
+            <a href="https://www.tiktok.com/@aurix.crew1" target="_blank" rel="noopener" class="social-btn" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                </svg>
+            </a>
+        </div>
+        <div class="info">
+            <p>Email: <a href="mailto:combohuella@gmail.com"><strong>combohuella@gmail.com</strong></a></p>
+            <p>WhatsApp: <a href="https://wa.me/qr/3AURREXZ6TITN1" target="_blank" rel="noopener"><strong>Escríbenos por WhatsApp</strong></a></p>
+            <p>© 2026 COMBO HUELLITAS | Donando con amor ♥</p>
+        </div>
+    </footer>
+
+    <!-- ============ MODAL DE PRODUCTO ============ -->
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+            <h3 id="modalTitle"></h3>
+            <p id="modalDesc"></p>
+            <ul class="modal-list" id="modalList"></ul>
+            <a class="btn-main" id="modalWhatsapp" href="#" target="_blank" rel="noopener">Pedir por WhatsApp 💬</a>
+        </div>
+    </div>
+
+    <!-- ============ BOTÓN FLOTANTE WHATSAPP ============ -->
+    <!-- Enlace al contacto de WhatsApp -->
+    <a class="whatsapp-float" href="https://wa.me/qr/3AURREXZ6TITN1" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+
+    <button class="btn-top" id="btnTop" aria-label="Volver arriba">↑</button>
+
+    <script>
+        // ============ 1. MENÚ MÓVIL ============
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+
+        menuToggle.addEventListener('click', () => {
+            const abierto = mainNav.classList.toggle('open');
+            menuToggle.setAttribute('aria-expanded', abierto);
+            menuToggle.textContent = abierto ? '✕' : '☰';
+        });
+        // Cierra el menú al elegir una opción
+        mainNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+            mainNav.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', false);
+            menuToggle.textContent = '☰';
+        }));
+
+        // ============ MAPA ============
+        const btnMapa = document.getElementById('btnMapa');
+        const panelMapa = document.getElementById('mapa');
+        let mapaCreado = null;
+        btnMapa.addEventListener('click', () => {
+            const abierto = panelMapa.classList.toggle('open');
+            btnMapa.setAttribute('aria-expanded', abierto);
+            btnMapa.textContent = abierto ? 'CARTOGRAFÍA ▴' : 'CARTOGRAFÍA 📍';
+            if (!abierto) return;
+            panelMapa.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (typeof L === 'undefined') {
+                document.getElementById('mapaLeaflet').innerHTML = '<p style="padding:20px">No se pudo cargar el mapa. Usa el enlace "Abrir en Google Maps".</p>';
+                return;
+            }
+            if (!mapaCreado) {
+                const pos = [4.5450, -74.0862];
+                mapaCreado = L.map('mapaLeaflet').setView(pos, 17);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19, attribution: '&copy; OpenStreetMap'
+                }).addTo(mapaCreado);
+                const icono = L.divIcon({ className: '', html: '<div class="flecha-mapa">⬇️</div>', iconSize: [46, 46], iconAnchor: [23, 46] });
+                L.marker(pos, { icon: icono }).addTo(mapaCreado)
+                    .bindPopup('<strong>Combo Huellitas</strong><br>Barrio La Victoria, San Cristóbal').openPopup();
+            }
+            setTimeout(() => mapaCreado.invalidateSize(), 200);
+        });
+
+        // ============ 2. PANEL INVESTIGACIÓN ============
+        const btnInv = document.getElementById('btnInvestigacion');
+        const panelInv = document.getElementById('investigacion');
+
+        btnInv.addEventListener('click', () => {
+            const abierto = panelInv.classList.toggle('open');
+            btnInv.setAttribute('aria-expanded', abierto);
+            btnInv.textContent = abierto ? 'INVESTIGACIÓN ▴' : 'INVESTIGACIÓN ▾';
+            if (abierto) panelInv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // ============ 3. CARRUSEL ============
+        const track = document.getElementById('carouselTrack');
+        const slides = track.querySelectorAll('.slide');
+        const dotsBox = document.getElementById('dots');
+        let currentSlide = 0;
+        let autoplay;
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'dot';
+            dot.setAttribute('aria-label', 'Ir a la diapositiva ' + (i + 1));
+            dot.addEventListener('click', () => { goToSlide(i); restartAutoplay(); });
+            dotsBox.appendChild(dot);
+        });
+        const dots = dotsBox.querySelectorAll('.dot');
+
+        function goToSlide(n) {
+            currentSlide = (n + slides.length) % slides.length;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+        }
+        function restartAutoplay() {
+            clearInterval(autoplay);
+            autoplay = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+
+        document.getElementById('prevSlide').addEventListener('click', () => { goToSlide(currentSlide - 1); restartAutoplay(); });
+        document.getElementById('nextSlide').addEventListener('click', () => { goToSlide(currentSlide + 1); restartAutoplay(); });
+
+        const carousel = document.getElementById('carousel');
+        carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+        carousel.addEventListener('mouseleave', restartAutoplay);
+
+        goToSlide(0);
+        restartAutoplay();
+
+        // ============ 4. CATÁLOGO + MODAL ============
+        const productos = [
+            {
+                nombre: "Accesorios",
+                emoji: "🎀",
+                desc: "Accesorios hechos a mano con arte urbano y motivos de huellitas. Cada compra apoya la adopción responsable.",
+                items: [
+                    "Collar artesanal pintado a mano",
+                    "Bolso de tela ecológico con arte estampado",
+                    "Pin metálico coleccionable de edición limitada",
+                    "Manilla solidaria con mensaje de adopción",
+                    "Llavero Pawprint con huella en resina colorida"
+                ]
+            },
+            {
+                nombre: "Posters",
+                emoji: "🖼️",
+                desc: "Impresiones artísticas de alta calidad con ilustraciones y graffiti inspirados en los animales rescatados.",
+                items: [
+                    "Poster Graffiti en tamaño A3",
+                    "Ilustraciones de perritos y gatitos del combo",
+                    "Ediciones especiales de la exposición"
+                ]
+            },
+            {
+                nombre: "Ropa",
+                emoji: "👕",
+                desc: "Prendas con diseños exclusivos de Combo Huellitas, pensadas para llevar el arte y el amor por los animales a todas partes.",
+                items: [
+                    "Camiseta Huellitas con diseño exclusivo",
+                    "Estampados de arte urbano",
+                    "Tallas y colores disponibles bajo pedido"
+                ]
+            },
+            {
+                nombre: "Stickers",
+                emoji: "✨",
+                desc: "Stickers con los personajes del combo, ideales para decorar cuadernos, termos, computadores y más.",
+                items: [
+                    "Sticker Pack con los personajes del combo",
+                    "Diseños de huellitas y arte urbano",
+                    "Material resistente al agua y al sol"
+                ]
+            }
+        ];
+
+        const grid = document.getElementById('articulos-grid');
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalList = document.getElementById('modalList');
+        const modalWhatsapp = document.getElementById('modalWhatsapp');
+
+        function abrirModal(p) {
+            modalTitle.textContent = p.emoji + ' ' + p.nombre;
+            modalDesc.textContent = p.desc;
+            modalList.innerHTML = '';
+            p.items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                modalList.appendChild(li);
+            });
+            modalWhatsapp.href = 'https://wa.me/qr/3AURREXZ6TITN1';
+            modal.classList.add('open');
+        }
+        function cerrarModal() { modal.classList.remove('open'); }
+
+        productos.forEach(p => {
+            const article = document.createElement('article');
+            article.className = 'card';
+
+            const h3 = document.createElement('h3');
+            h3.textContent = p.emoji + ' ' + p.nombre;
+            const desc = document.createElement('p');
+            desc.textContent = p.desc;
+            const btn = document.createElement('button');
+            btn.textContent = 'Ver detalles';
+            btn.addEventListener('click', () => abrirModal(p));
+
+            article.append(h3, desc, btn);
+            grid.appendChild(article);
+        });
+
+        document.getElementById('modalClose').addEventListener('click', cerrarModal);
+        modal.addEventListener('click', e => { if (e.target === modal) cerrarModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal(); });
+
+        // ============ 6. PESTAÑAS TRANSMEDIA ============
+        const tabs = document.querySelectorAll('.transmedia-item');
+        const paneles = document.querySelectorAll('.transmedia-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                paneles.forEach(pn => pn.classList.remove('active'));
+
+                tab.classList.add('active');
+                tab.setAttribute('aria-selected', 'true');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
+        });
+
+        // ============ 5. BOTÓN VOLVER ARRIBA ============
+        const btnTop = document.getElementById('btnTop');
+        window.addEventListener('scroll', () => {
+            btnTop.classList.toggle('show', window.scrollY > 500);
+        });
+        btnTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    </script>
+</body>
+</html>
